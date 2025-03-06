@@ -20,11 +20,11 @@ muffin, 3
 '''
 food_items = pd.read_csv(io.StringIO(csv2))
 
-answer = """
+answer_str = """
 SELECT * FROM beverages
 CROSS JOIN food_items
 """
-solution = duckdb.sql(answer).df()
+solution_df = duckdb.sql(answer_str).df()
 
 
 st.write("""
@@ -49,17 +49,19 @@ if query:
     st.dataframe(result)
 
     if len(result.columns) != len(
-        solution.columns
+        solution_df.columns
     ):
         st.write("Some columns are missing")
 
-    n_lines_difference = result.shape[0] - solution.shape[0]
+        result = result[solution_df.columns]
+
+    n_lines_difference = result.shape[0] - solution_df.shape[0]
     if n_lines_difference != 0:
         st.write(
             f"result has a {n_lines_difference} lines difference with the solution"
         )
 
-    st.dataframe(result.compare(solution))
+    st.dataframe(result.compare(solution_df))
 
 tab2, tab3 = st.tabs(["Tables", "Solutions"])
 
@@ -69,7 +71,7 @@ with tab2:
     st.write("table: food_items")
     st.dataframe(food_items)
     st.write("expected:")
-    st.dataframe(solution)
+    st.dataframe(solution_df)
 
 with tab3:
-    st.write(answer)
+    st.write(answer_str)
