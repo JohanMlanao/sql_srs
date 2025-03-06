@@ -43,7 +43,7 @@ with st.sidebar:
 
 
 st.header("enter your code:")
-query = st.text_area(label="votre code SQL ici", key="user_input")
+query = st.text_area(label="Here your SQL code", key="user_input")
 if query:
     result = duckdb.sql(query).df()
     st.dataframe(result)
@@ -58,6 +58,8 @@ if query:
         st.write(
             f"result has a {n_lines_difference} lines difference with the solution"
         )
+
+    st.dataframe(result.compare(solution))
 
 tab2, tab3 = st.tabs(["Tables", "Solutions"])
 
