@@ -55,6 +55,7 @@ if query:
 
     try:
         result = result[solution_df.columns]
+        st.dataframe(result.compare(solution_df))
     except KeyError as e:
         st.write("Some columns are missing")
 
@@ -64,7 +65,7 @@ if query:
             f"result has a {n_lines_difference} lines difference with the solution"
         )
 
-    st.dataframe(result.compare(solution_df))
+
 
 tab2, tab3 = st.tabs(["Tables", "Solutions"])
 
