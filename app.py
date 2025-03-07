@@ -1,36 +1,40 @@
+# pylint: disable=missing-module-docstring
+import io
 import streamlit as st
 import pandas as pd
 import duckdb
-import io
 
 
-csv = '''
+
+CSV = """
 beverage,price
 orange juice,2.5
 Expresso,2
 Tea,3
-'''
-beverages = pd.read_csv(io.StringIO(csv))
+"""
+beverages = pd.read_csv(io.StringIO(CSV))
 
-csv2 = '''
+CSV2 = """
 food_item,food_price
 cookie juice,2.5
 chocolatine,2
 muffin,3
-'''
-food_items = pd.read_csv(io.StringIO(csv2))
+"""
+food_items = pd.read_csv(io.StringIO(CSV2))
 
-answer_str = """
+ANSWER_STR = """
 SELECT * FROM beverages
 CROSS JOIN food_items
 """
-solution_df = duckdb.sql(answer_str).df()
+solution_df = duckdb.sql(ANSWER_STR).df()
 
 
-st.write("""
+st.write(
+    """
 # SQL SRS
 Spaced Repetition System SQL practice
-""")
+"""
+)
 
 with st.sidebar:
     option = st.selectbox(
@@ -39,7 +43,7 @@ with st.sidebar:
         index=None,
         placeholder="Select a theme...",
     )
-    st.write('You selected:', option)
+    st.write("You selected:", option)
 
 
 st.header("enter your code:")
@@ -48,9 +52,7 @@ if query:
     result = duckdb.sql(query).df()
     st.dataframe(result)
 
-    if len(result.columns) != len(
-        solution_df.columns
-    ):
+    if len(result.columns) != len(solution_df.columns):
         st.write("Some columns are missing")
 
     try:
@@ -66,7 +68,6 @@ if query:
         )
 
 
-
 tab2, tab3 = st.tabs(["Tables", "Solutions"])
 
 with tab2:
@@ -78,4 +79,4 @@ with tab2:
     st.dataframe(solution_df)
 
 with tab3:
-    st.write(answer_str)
+    st.write(ANSWER_STR)
