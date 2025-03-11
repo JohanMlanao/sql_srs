@@ -40,22 +40,22 @@ muffin,3
 food_items = pd.read_csv(io.StringIO(csv2))
 con.execute("CREATE TABLE IF NOT EXISTS food_items AS SELECT * FROM food_items")
 
-sizes = '''
+sizes = """
 size
 XS
 M
 L
 XL
-'''
+"""
 sizes = pd.read_csv(io.StringIO(sizes))
 con.execute("CREATE TABLE IF NOT EXISTS sizes AS SELECT * FROM sizes")
 
-trademarks = '''
+trademarks = """
 trademark
 Nike
 Asphalte
 Abercrombie
 Lewis
-'''
+"""
 trademarks = pd.read_csv(io.StringIO(trademarks))
 con.execute("CREATE TABLE IF NOT EXISTS trademarks AS SELECT * FROM trademarks")
