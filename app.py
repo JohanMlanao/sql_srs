@@ -1,6 +1,5 @@
 # pylint: disable=missing-module-docstring
 
-import ast
 import io
 
 import duckdb
@@ -25,7 +24,12 @@ with st.sidebar:
     )
     st.write("You selected:", theme)
 
-    exercise = con.execute(f"SELECT * FROM memory_state WHERE theme = '{theme}'").df()
+    exercise = (
+        con.execute(f"SELECT * FROM memory_state WHERE theme = '{theme}'")
+        .df()
+        .sort_values("last_reviewed")
+        .reset_index(drop=True)
+    )
     st.write(exercise)
 
     try:
@@ -65,16 +69,16 @@ tab2, tab3 = st.tabs(["Tables", "Solutions"])
 
 with tab2:
     try:
-        exercise_tables = ast.literal_eval(exercise.loc[0, "tables"])
+        exercise_tables = exercise.loc[0, "tables"]
         for table in exercise_tables:
             st.write(f"table: {table}")
             df_table = con.execute(f"SELECT * FROM {table}").df()
             st.dataframe(df_table)
     except KeyError as e:
-        st.write("You need to select an exercise to display the tables")
+        pass
 
 with tab3:
     try:
         st.write(answer)
     except NameError as n:
-        st.write("You need to select an exercise to display the answer")
+        pass
