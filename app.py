@@ -1,6 +1,10 @@
 # pylint: disable=missing-module-docstring
 
+import ast
+import io
+
 import duckdb
+import pandas as pd
 import streamlit as st
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
@@ -22,7 +26,7 @@ Spaced Repetition System SQL practice
 with st.sidebar:
     theme = st.selectbox(
         "What would you like to review ?",
-        ("cross_joins", "GroupBy", "Windows Functions"),
+        ("cross_joins", "GroupBy", "window_functions"),
         index=None,
         placeholder="Select a theme...",
     )
@@ -53,11 +57,14 @@ query = st.text_area(label="Here your SQL code", key="user_input")
 #         )
 #
 #
-# tab2, tab3 = st.tabs(["Tables", "Solutions"])
-#
-# with tab2:
-#     st.write("tables: beverages")
-#     st.dataframe(beverages)
+tab2, tab3 = st.tabs(["Tables", "Solutions"])
+
+with tab2:
+    exercise_tables = ast.literal_eval(exercise.loc[0, "tables"])
+    for table in exercise_tables:
+        st.write(f"table: {table}")
+        df_table = con.execute(f"SELECT * FROM {table}").df()
+        st.dataframe(df_table)
 #     st.write("table: food_items")
 #     st.dataframe(food_items)
 #     st.write("expected:")
