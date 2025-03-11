@@ -65,10 +65,9 @@ with tab2:
         st.write(f"table: {table}")
         df_table = con.execute(f"SELECT * FROM {table}").df()
         st.dataframe(df_table)
-#     st.write("table: food_items")
-#     st.dataframe(food_items)
-#     st.write("expected:")
-#     st.dataframe(solution_df)
-#
-# with tab3:
-#     st.write(ANSWER_STR)
+
+with tab3:
+    exercise_name = exercise.loc[0, "exercise_name"]
+    with open(f"answers/{exercise_name}", "r") as f:
+        answer = f.read()
+    st.write(answer)
