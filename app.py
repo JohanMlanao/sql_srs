@@ -43,7 +43,6 @@ if query:
     result = con.execute(query).df()
     st.dataframe(result)
 
-
     try:
         result = result[solution_df.columns]
         st.dataframe(result.compare(solution_df))
