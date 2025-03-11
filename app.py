@@ -37,9 +37,9 @@ with st.sidebar:
 
 st.header("enter your code:")
 query = st.text_area(label="Here your SQL code", key="user_input")
-# if query:
-#     result = duckdb.sql(query).df()
-#     st.dataframe(result)
+if query:
+    result = con.execute(query).df()
+    st.dataframe(result)
 #
 #     if len(result.columns) != len(solution_df.columns):
 #         st.write("Some columns are missing")
