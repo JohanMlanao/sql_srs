@@ -2,10 +2,10 @@ import logging
 import os
 import subprocess
 import sys
+from datetime import date, timedelta
 
 import duckdb
 import streamlit as st
-from datetime import date, timedelta
 
 if "data" not in os.listdir():
     logging.error(os.listdir())
@@ -34,7 +34,7 @@ def check_users_solution(user_query: str) -> None:
         if result.compare(solution_df).shape == (0, 0):
             st.write("Correct !")
             st.balloons()
-    except KeyError as e:
+    except KeyError:
         st.write("Some columns are missing")
     n_lines_difference = result.shape[0] - solution_df.shape[0]
     if n_lines_difference != 0:
@@ -89,13 +89,16 @@ query = st.text_area(label="Here your SQL code", key="user_input")
 if query:
     check_users_solution(query)
 
-for n_days in [2, 7, 21]:
-    if st.button(f"Revoir dans {n_days} jours"):
+list_days = [2, 7, 21]
+
+for n_days, col in zip(list_days, st.columns(len(list_days))):
+    if col.button(f"Revoir dans {n_days} jours", use_container_width=True):
         next_review = date.today() + timedelta(days=n_days)
         con.execute(
             f"UPDATE memory_state SET last_reviewed = '{next_review}' WHERE exercise_name = '{exercise_name}'"
         )
         st.rerun()
+
 
 if st.button("Reset"):
     con.execute(f"UPDATE memory_state SET last_reviewed = '1970-01-01'")
