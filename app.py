@@ -17,6 +17,45 @@ if "exercises_sql_tables.duckdb" not in os.listdir("data"):
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
+
+def check_users_solution(user_query: str) -> None:
+    """
+    Checks that user SQL query is correct by:
+    1: checking the columns
+    2: checking the values
+    :param user_query: a string containing the query inserted by the user
+    """
+    result = con.execute(user_query).df()
+    st.dataframe(result)
+    try:
+        result = result[solution_df.columns]
+        st.dataframe(result.compare(solution_df))
+    except KeyError:
+        st.write("Some columns are missing")
+    n_lines_difference = result.shape[0] - solution_df.shape[0]
+    if n_lines_difference != 0:
+        st.write(
+            f"result has a {n_lines_difference} lines difference with the solution"
+        )
+
+
+def get_exercise(user_theme: str):
+    if user_theme:
+        st.write(f"You selected: {user_theme}")
+        select_exercise_query = (
+            f"SELECT * FROM memory_state WHERE theme = '{user_theme}'"
+        )
+    else:
+        select_exercise_query = f"SELECT * FROM memory_state "
+    user_exercise = (
+        con.execute(select_exercise_query)
+        .df()
+        .sort_values("last_reviewed")
+        .reset_index(drop=True)
+    )
+    return user_exercise
+
+
 st.write(
     """
 # SQL SRS
@@ -32,17 +71,7 @@ with st.sidebar:
         index=None,
         placeholder="Select a theme...",
     )
-    if theme:
-        st.write(f"You selected: {theme}")
-        select_exercise_query = f"SELECT * FROM memory_state WHERE theme = '{theme}'"
-    else:
-        select_exercise_query = f"SELECT * FROM memory_state "
-    exercise = (
-        con.execute(select_exercise_query)
-        .df()
-        .sort_values("last_reviewed")
-        .reset_index(drop=True)
-    )
+    exercise = get_exercise(theme)
     st.write(exercise)
     exercise_name = exercise.loc[0, "exercise_name"]
     with open(f"answers/{exercise_name}.sql", "r") as f:
@@ -52,21 +81,9 @@ with st.sidebar:
 
 st.header("Enter your code:")
 query = st.text_area(label="Here your SQL code", key="user_input")
+
 if query:
-    result = con.execute(query).df()
-    st.dataframe(result)
-
-    try:
-        result = result[solution_df.columns]
-        st.dataframe(result.compare(solution_df))
-    except KeyError as e:
-        st.write("Some columns are missing")
-    n_lines_difference = result.shape[0] - solution_df.shape[0]
-    if n_lines_difference != 0:
-        st.write(
-            f"result has a {n_lines_difference} lines difference with the solution"
-        )
-
+    check_users_solution(query)
 
 tab2, tab3 = st.tabs(["Tables", "Solutions"])
 
