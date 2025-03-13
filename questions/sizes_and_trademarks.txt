@@ -1,0 +1,1 @@
+Essayez de faire votre propre cross join avec les tables sizes et trademarks
