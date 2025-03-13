@@ -78,13 +78,14 @@ with st.sidebar:
     exercise = get_exercise(theme)
     st.write(exercise)
     exercise_name = exercise.loc[0, "exercise_name"]
+    with open(f"questions/{exercise_name}.txt", "r") as q:
+        question = q.read()
     with open(f"answers/{exercise_name}.sql", "r") as f:
         answer = f.read()
 
     solution_df = con.execute(answer).df()
 
-st.header("Enter your code:")
-query = st.text_area(label="Here your SQL code", key="user_input")
+query = st.text_area(label=f"{question}", key="user_input", )
 
 if query:
     check_users_solution(query)
