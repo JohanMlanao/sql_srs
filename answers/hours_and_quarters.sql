@@ -1,3 +1,3 @@
 SELECT *
 FROM hours
-CROSS JOIN quarters
+CROSS JOIN minutes

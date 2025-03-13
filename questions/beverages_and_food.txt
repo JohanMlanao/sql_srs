@@ -1,1 +1,1 @@
-Try making your own CROSS JOIN with the beverages and food_items tables
+Try making your own CROSS JOIN with the beverages and food_items tables.
