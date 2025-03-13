@@ -105,7 +105,7 @@ if query:
 list_days = [2, 7, 21]
 
 for n_days, col in zip(list_days, st.columns(len(list_days))):
-    if col.button(f"Revoir dans {n_days} jours", use_container_width=True):
+    if col.button(f"Review in {n_days} days", use_container_width=True):
         next_review = date.today() + timedelta(days=n_days)
         con.execute(
             f"UPDATE memory_state SET last_reviewed = '{next_review}' WHERE exercise_name = '{exercise_name}'"
