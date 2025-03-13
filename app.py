@@ -77,7 +77,6 @@ with st.sidebar:
     _, exp_col, _ = st.columns([1, 3, 1])
     with exp_col:
         st.image("logo/SQL_SRS_logo.png")
-
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
     theme = st.selectbox(
         "What would you like to review ?",
@@ -94,10 +93,15 @@ with st.sidebar:
         answer = f.read()
 
     solution_df = con.execute(answer).df()
-st.text(f"Exercice: {question}")
-query = st.text_area(
+st.text(f"Exercise: {question}")
+form = st.form("my_form")
+query = form.text_area(
     label="Here your SQL code", key="user_input", label_visibility="collapsed"
 )
+form.form_submit_button("Submit")
+# query = st.text_area(
+#     label="Here your SQL code", key="user_input", label_visibility="collapsed"
+# )
 
 if query:
     check_users_solution(query)
@@ -105,7 +109,7 @@ if query:
 list_days = [2, 7, 21]
 
 for n_days, col in zip(list_days, st.columns(len(list_days))):
-    if col.button(f"Revoir dans {n_days} jours", use_container_width=True):
+    if col.button(f"Review in {n_days} days", use_container_width=True):
         next_review = date.today() + timedelta(days=n_days)
         con.execute(
             f"UPDATE memory_state SET last_reviewed = '{next_review}' WHERE exercise_name = '{exercise_name}'"
