@@ -60,6 +60,12 @@ def get_exercise(user_theme: str):
     return user_exercise
 
 
+st.set_page_config(
+    page_title="SQL SRS",
+    layout="centered",
+    # initial_sidebar_state=st.session_state.get('sidebar_state', 'expanded'),
+)
+
 st.write(
     """
 # SQL SRS
@@ -84,8 +90,10 @@ with st.sidebar:
         answer = f.read()
 
     solution_df = con.execute(answer).df()
-
-query = st.text_area(label=f"{question}", key="user_input", )
+st.text(f"Exercice: {question}")
+query = st.text_area(
+    label="Here your SQL code", key="user_input", label_visibility="collapsed"
+)
 
 if query:
     check_users_solution(query)
@@ -110,9 +118,9 @@ tab2, tab3 = st.tabs(["Tables", "Solutions"])
 with tab2:
     exercise_tables = exercise.loc[0, "tables"]
     for table in exercise_tables:
-        st.write(f"table: {table}")
+        st.write(f"Table: {table}")
         df_table = con.execute(f"SELECT * FROM {table}").df()
         st.dataframe(df_table)
 
 with tab3:
-    st.write(answer)
+    st.text(answer)
