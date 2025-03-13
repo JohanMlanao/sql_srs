@@ -89,12 +89,14 @@ create_database()
 # Connection to the database
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
-
+# Change the name of the web page
 st.set_page_config(
     page_title="SQL SRS",
     layout="centered",
     # initial_sidebar_state=st.session_state.get('sidebar_state', 'expanded'),
 )
+
+# Title of the page
 st.write(
     """
     # SQL SRS
@@ -102,6 +104,7 @@ st.write(
     """
 )
 
+# Creation of the sidebar
 with st.sidebar:
     _, exp_col, _ = st.columns([1, 3, 1])
     with exp_col:
@@ -114,6 +117,7 @@ with st.sidebar:
         index=None,
         placeholder="Select a theme...",
     )
+
     exercise = get_exercise(theme)
     st.write(exercise)
     exercise_name = exercise.loc[0, "exercise_name"]
@@ -121,30 +125,35 @@ with st.sidebar:
         question = q.read()
     with open(f"answers/{exercise_name}.sql", "r") as f:
         answer = f.read()
-
+    st.write(f"Current exercise: {exercise_name}")
+    # Retrieve solution dataframe
     solution_df = con.execute(answer).df()
 
+    # Create area for tables and solution in the sidebar
     tab2, tab3 = st.tabs(["Tables", "Solutions"])
-
     with tab2:
         exercise_tables = exercise.loc[0, "tables"]
         for table in exercise_tables:
             st.write(f"Table: {table}")
             df_table = con.execute(f"SELECT * FROM {table}").df()
             st.dataframe(df_table)
-
     with tab3:
         st.text(answer)
 
+# Create the text area for SQL query
 st.markdown("######")
-st.text(f"Exercise: {question}")
+st.text(f"{question}")
 form = st.form("my_form")
 query = form.text_area(
-    label="Here your SQL code", key="user_input", label_visibility="collapsed"
+    label="Here your SQL code",
+    key="user_input",
+    label_visibility="collapsed",
+    height=200,
 )
 form.form_submit_button("Submit")
 
 if query:
     check_users_solution(query)
 
+# Create the three buttons for SRS
 create_srs_button([2, 7, 21], exercise_name)
