@@ -77,7 +77,6 @@ with st.sidebar:
     _, exp_col, _ = st.columns([1, 3, 1])
     with exp_col:
         st.image("logo/SQL_SRS_logo.png")
-
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
     theme = st.selectbox(
         "What would you like to review ?",
@@ -94,10 +93,15 @@ with st.sidebar:
         answer = f.read()
 
     solution_df = con.execute(answer).df()
-st.text(f"Exercice: {question}")
-query = st.text_area(
+st.text(f"Exercise: {question}")
+form = st.form("my_form")
+query = form.text_area(
     label="Here your SQL code", key="user_input", label_visibility="collapsed"
 )
+form.form_submit_button("Submit")
+# query = st.text_area(
+#     label="Here your SQL code", key="user_input", label_visibility="collapsed"
+# )
 
 if query:
     check_users_solution(query)
