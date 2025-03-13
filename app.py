@@ -7,16 +7,15 @@ from datetime import date, timedelta
 import duckdb
 import streamlit as st
 
-if "data" not in os.listdir():
-    logging.error(os.listdir())
-    logging.error("creating folder data")
-    os.mkdir("data")
 
-if "exercises_sql_tables.duckdb" not in os.listdir("data"):
-    # Méthode "hacky" : exec(open("init_db.py").read())
-    subprocess.run([sys.executable, "init_db.py"])
-
-con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
+def create_database():
+    if "data" not in os.listdir():
+        logging.error(os.listdir())
+        logging.error("creating folder data")
+        os.mkdir("data")
+    if "exercises_sql_tables.duckdb" not in os.listdir("data"):
+        # Méthode "hacky" : exec(open("init_db.py").read())
+        subprocess.run([sys.executable, "init_db.py"])
 
 
 def check_users_solution(user_query: str) -> None:
@@ -44,6 +43,11 @@ def check_users_solution(user_query: str) -> None:
 
 
 def get_exercise(user_theme: str):
+    """
+    Retrieve the longest-running exercise review based on the chosen theme.
+    If there's no selection, it retrieves the longest-running exercise.
+    :param user_theme: a string containing the theme chosen by the user
+    """
     if user_theme:
         st.write(f"You selected: {user_theme}")
         select_exercise_query = (
@@ -60,6 +64,32 @@ def get_exercise(user_theme: str):
     return user_exercise
 
 
+def create_srs_button(list_d: list, user_exercise: str) -> None:
+    """
+    Create buttons that allow user to delay the next review.
+    :param list_d: a list of integers containing the number of days the user want to delay the review.
+    :param user_exercise: the name of the exercise that the user is currently doing.
+    :return:
+    """
+    for n_days, col in zip(list_d, st.columns(len(list_d))):
+        if col.button(f"Review in {n_days} days", use_container_width=True):
+            next_review = date.today() + timedelta(days=n_days)
+            con.execute(
+                f"UPDATE memory_state SET last_reviewed = '{next_review}' WHERE exercise_name = '{user_exercise}'"
+            )
+            st.rerun()
+    if st.button("Reset"):
+        con.execute(f"UPDATE memory_state SET last_reviewed = '1970-01-01'")
+        st.rerun()
+
+
+# Creation of the database
+create_database()
+
+# Connection to the database
+con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
+
+
 st.set_page_config(
     page_title="SQL SRS",
     layout="centered",
@@ -71,7 +101,6 @@ st.write(
     Spaced Repetition System SQL practice
     """
 )
-
 
 with st.sidebar:
     _, exp_col, _ = st.columns([1, 3, 1])
@@ -94,6 +123,19 @@ with st.sidebar:
         answer = f.read()
 
     solution_df = con.execute(answer).df()
+
+    tab2, tab3 = st.tabs(["Tables", "Solutions"])
+
+    with tab2:
+        exercise_tables = exercise.loc[0, "tables"]
+        for table in exercise_tables:
+            st.write(f"Table: {table}")
+            df_table = con.execute(f"SELECT * FROM {table}").df()
+            st.dataframe(df_table)
+
+    with tab3:
+        st.text(answer)
+
 st.markdown("######")
 st.text(f"Exercise: {question}")
 form = st.form("my_form")
@@ -101,36 +143,8 @@ query = form.text_area(
     label="Here your SQL code", key="user_input", label_visibility="collapsed"
 )
 form.form_submit_button("Submit")
-# query = st.text_area(
-#     label="Here your SQL code", key="user_input", label_visibility="collapsed"
-# )
 
 if query:
     check_users_solution(query)
 
-list_days = [2, 7, 21]
-
-for n_days, col in zip(list_days, st.columns(len(list_days))):
-    if col.button(f"Review in {n_days} days", use_container_width=True):
-        next_review = date.today() + timedelta(days=n_days)
-        con.execute(
-            f"UPDATE memory_state SET last_reviewed = '{next_review}' WHERE exercise_name = '{exercise_name}'"
-        )
-        st.rerun()
-
-
-if st.button("Reset"):
-    con.execute(f"UPDATE memory_state SET last_reviewed = '1970-01-01'")
-    st.rerun()
-
-tab2, tab3 = st.tabs(["Tables", "Solutions"])
-
-with tab2:
-    exercise_tables = exercise.loc[0, "tables"]
-    for table in exercise_tables:
-        st.write(f"Table: {table}")
-        df_table = con.execute(f"SELECT * FROM {table}").df()
-        st.dataframe(df_table)
-
-with tab3:
-    st.text(answer)
+create_srs_button([2, 7, 21], exercise_name)
