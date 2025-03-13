@@ -1,1 +1,1 @@
-Essayez de faire votre propre CROSS JOIN avec les tables sizes et trademarks
+Try making your own CROSS JOIN with the sizes and trademarks tables.
