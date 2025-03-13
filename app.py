@@ -30,7 +30,7 @@ def check_users_solution(user_query: str) -> None:
     st.dataframe(result)
     try:
         result = result[solution_df.columns]
-        st.dataframe(result.compare(solution_df))
+        # st.dataframe(result.compare(solution_df))
         if result.compare(solution_df).shape == (0, 0):
             st.write("Correct !")
             st.balloons()
@@ -77,6 +77,7 @@ with st.sidebar:
     _, exp_col, _ = st.columns([1, 3, 1])
     with exp_col:
         st.image("logo/SQL_SRS_logo.png")
+        st.markdown("####")
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
     theme = st.selectbox(
         "What would you like to review ?",
@@ -85,7 +86,7 @@ with st.sidebar:
         placeholder="Select a theme...",
     )
     exercise = get_exercise(theme)
-    st.write(exercise[["theme", "exercise_name", "last_reviewed"]])
+    st.write(exercise)
     exercise_name = exercise.loc[0, "exercise_name"]
     with open(f"questions/{exercise_name}.txt", "r") as q:
         question = q.read()
@@ -93,6 +94,7 @@ with st.sidebar:
         answer = f.read()
 
     solution_df = con.execute(answer).df()
+st.markdown("######")
 st.text(f"Exercise: {question}")
 form = st.form("my_form")
 query = form.text_area(

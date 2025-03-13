@@ -1,0 +1,1 @@
+Make a CROSS JOIN to get every quarter-hour your store is open between 8 AM and 1 PM
