@@ -35,11 +35,11 @@ def check_users_solution(user_query: str) -> None:
             st.write("Correct !")
             st.balloons()
     except KeyError:
-        st.write("Some columns are missing")
+        st.write("Some columns are missing.")
     n_lines_difference = result.shape[0] - solution_df.shape[0]
     if n_lines_difference != 0:
         st.write(
-            f"result has a {n_lines_difference} lines difference with the solution"
+            f"Result has a {n_lines_difference} lines difference with the solution."
         )
 
 
@@ -65,15 +65,19 @@ st.set_page_config(
     layout="centered",
     # initial_sidebar_state=st.session_state.get('sidebar_state', 'expanded'),
 )
-
 st.write(
     """
-# SQL SRS
-Spaced Repetition System SQL practice
-"""
+    # SQL SRS
+    Spaced Repetition System SQL practice
+    """
 )
 
+
 with st.sidebar:
+    _, exp_col, _ = st.columns([1, 3, 1])
+    with exp_col:
+        st.image("logo/SQL_SRS_logo.png")
+
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
     theme = st.selectbox(
         "What would you like to review ?",
@@ -82,7 +86,7 @@ with st.sidebar:
         placeholder="Select a theme...",
     )
     exercise = get_exercise(theme)
-    st.write(exercise)
+    st.write(exercise[["theme", "exercise_name", "last_reviewed"]])
     exercise_name = exercise.loc[0, "exercise_name"]
     with open(f"questions/{exercise_name}.txt", "r") as q:
         question = q.read()
