@@ -1,7 +1,3 @@
-import os
-import subprocess
-import sys
-
 import duckdb
 
 import init_db_cross_join as cj
