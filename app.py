@@ -97,19 +97,16 @@ st.set_page_config(
 )
 
 # Title of the page
-st.write(
-    """
-    # SQL SRS
-    Spaced Repetition System SQL practice
-    """
-)
+
+st.markdown("<h1 style='text-align: center; color: black;'>SQL SRS </h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; color: black;'>Spaced Repetition System SQL practice </h3>", unsafe_allow_html=True)
 
 # Creation of the sidebar
 with st.sidebar:
-    _, exp_col, _ = st.columns([1, 3, 1])
+    _, exp_col, _ = st.columns([1, 2, 1])
     with exp_col:
-        st.image("logo/SQL_SRS_logo.png")
-        st.markdown("####")
+        st.image("logo/SQL_SRS_logo.png", width=225)
+        # st.markdown("####")
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
     theme = st.selectbox(
         "What would you like to review ?",
