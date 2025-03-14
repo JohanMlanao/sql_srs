@@ -46,4 +46,8 @@ salaries, seniority = ij.get_salaries_and_seniority()
 con.execute("CREATE TABLE IF NOT EXISTS salaries AS SELECT * FROM salaries")
 con.execute("CREATE TABLE IF NOT EXISTS seniority AS SELECT * FROM seniority")
 
+orders, order_details = ij.get_orders_and_details()
+con.execute("CREATE TABLE IF NOT EXISTS orders AS SELECT * FROM orders")
+con.execute("CREATE TABLE IF NOT EXISTS order_details AS SELECT * FROM order_details")
+
 con.close()
