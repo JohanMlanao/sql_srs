@@ -98,8 +98,14 @@ st.set_page_config(
 
 # Title of the page
 
-st.markdown("<h1 style='text-align: center; color: black;'>SQL SRS </h1>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center; color: black;'>Spaced Repetition System SQL practice </h3>", unsafe_allow_html=True)
+st.markdown(
+    "<h1 style='text-align: center; color: black;'>SQL SRS </h1>",
+    unsafe_allow_html=True,
+)
+st.markdown(
+    "<h3 style='text-align: center; color: black;'>Spaced Repetition System SQL practice </h3>",
+    unsafe_allow_html=True,
+)
 
 # Creation of the sidebar
 with st.sidebar:
