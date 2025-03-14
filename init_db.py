@@ -1,18 +1,18 @@
-import os
-import subprocess
-import sys
-
 import duckdb
+import pandas as pd
 
 import init_db_cross_join as cj
+import init_db_inner_join as ij
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
 # ------------------------------------------------------------
 # EXERCISES LIST
 # ------------------------------------------------------------
+memory_state_cj = cj.get_memory_state_cross_join()
+memory_state_ij = ij.get_memory_state_inner_join()
+memory_state_df = pd.concat([memory_state_cj, memory_state_ij])
 
-memory_state_df = cj.get_memory_state_cross_join()
 
 con.execute("CREATE TABLE IF NOT EXISTS memory_state AS SELECT * FROM memory_state_df")
 
@@ -39,7 +39,11 @@ con.execute("CREATE TABLE IF NOT EXISTS markets AS SELECT * FROM markets")
 con.execute("CREATE TABLE IF NOT EXISTS quarters AS SELECT * FROM quarters")
 
 # ------------------------------------------------------------
-# CROSS JOIN EXERCISES
+# INNER JOIN EXERCISES
 # ------------------------------------------------------------
+
+salaries, seniority = ij.get_salaries_and_seniority()
+con.execute("CREATE TABLE IF NOT EXISTS salaries AS SELECT * FROM salaries")
+con.execute("CREATE TABLE IF NOT EXISTS seniority AS SELECT * FROM seniority")
 
 con.close()
