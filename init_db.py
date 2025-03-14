@@ -14,7 +14,7 @@ data = {
     "exercise_name": [
         "beverages_and_food",
         "sizes_and_trademarks",
-        "hours_and_quarters",
+        "hours_and_minutes",
         "real_life_case",
     ],
     "tables": [
