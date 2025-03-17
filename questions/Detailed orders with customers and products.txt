@@ -1,0 +1,1 @@
+Make three INNER JOIN to retrieve detailed orders with customers and products

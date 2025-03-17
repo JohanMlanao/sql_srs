@@ -8,10 +8,20 @@ def get_memory_state_inner_join():
     Create and return a pandas DataFrame containing all the basic information for all inner join exercises
     """
     data = {
-        "theme": ["Inner join", "Inner join", "Inner join"],
-        "exercise_name": ["Salaries and seniority", "Orders and details", "Detailed orders and customers"],
-        "tables": [["salaries", "seniority"], ["orders", "order_details"], ["orders", "order_details", "customers"]],
-        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01"],
+        "theme": ["Inner join", "Inner join", "Inner join", "Inner join"],
+        "exercise_name": [
+            "Salaries and seniority",
+            "Orders and details",
+            "Detailed orders and customers",
+            "Detailed orders with customers and products",
+        ],
+        "tables": [
+            ["salaries", "seniority"],
+            ["orders", "order_details"],
+            ["orders", "order_details", "customers"],
+            ["orders", "order_details", "customers", "products"],
+        ],
+        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
@@ -62,8 +72,15 @@ def get_customers_data():
     :return:
     """
     customers_data = {
-        'customer_id': [101, 102, 103, 104, 105, 106],
-        'customer_name': ["Toufik", "Daniel", "Tancrède", "Kaouter", "Jean-Nicolas", "David"]
+        "customer_id": [101, 102, 103, 104, 105, 106],
+        "customer_name": [
+            "Toufik",
+            "Daniel",
+            "Tancrède",
+            "Kaouter",
+            "Jean-Nicolas",
+            "David",
+        ],
     }
     return pd.DataFrame(customers_data)
 
@@ -75,10 +92,8 @@ def get_products_data():
     """
     p_names = ["Laptop", "Ipad", "Livre", "Petitos"]
     products_data = {
-        'product_id': [101, 103, 104, 105],
-        'product_name': p_names,
-        'product_price': [800, 400, 30, 2]
+        "product_id": [101, 103, 104, 105],
+        "product_name": p_names,
+        "product_price": [800, 400, 30, 2],
     }
     return pd.DataFrame(products_data)
-
-
