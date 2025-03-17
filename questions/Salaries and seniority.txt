@@ -1,1 +1,3 @@
-A CROSS JOIN with a filter is equal to an INNER JOIN. Try to make an INNER JOIN or a CROSS JOIN with a filter between the salaries and seniority tables.
+A CROSS JOIN with a filter is equal to an INNER JOIN.
+Try to make an INNER JOIN or a CROSS JOIN with a filter between the salaries and seniority tables.
+Keep only one employee_id column, as both columns will return the same values.

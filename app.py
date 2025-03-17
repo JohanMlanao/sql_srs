@@ -29,18 +29,26 @@ def check_users_solution(user_query: str) -> None:
     result = con.execute(user_query).df()
     st.dataframe(result)
     try:
-        result = result[solution_df.columns]
+        # result = result[solution_df.columns]
         # st.dataframe(result.compare(solution_df))
         if result.compare(solution_df).shape == (0, 0):
             st.write("Correct !")
             st.balloons()
-    except KeyError:
-        st.write("Some columns are missing.")
-    n_lines_difference = result.shape[0] - solution_df.shape[0]
-    if n_lines_difference != 0:
-        st.write(
-            f"Result has a {n_lines_difference} lines difference with the solution."
-        )
+    except ValueError:
+        n_columns_difference = result.shape[1] - solution_df.shape[1]
+        n_lines_difference = result.shape[0] - solution_df.shape[0]
+        if n_columns_difference != 0 and n_lines_difference != 0:
+            st.write(
+                f"Result has a {n_columns_difference} columns and a {n_lines_difference} lines difference with the solution."
+            )
+        elif n_lines_difference != 0:
+            st.write(
+                f"Result has a {n_lines_difference} lines difference with the solution."
+            )
+        elif n_columns_difference != 0:
+            st.write(
+                f"Result has a {n_columns_difference} columns difference with the solution."
+            )
 
 
 def get_exercise(user_theme: str):
