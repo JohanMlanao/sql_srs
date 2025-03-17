@@ -1,6 +1,6 @@
-SELECT salary, employee_id, seniority
-FROM salaries
-INNER JOIN seniority
+SELECT salary, sal.employee_id, seniority
+FROM salaries as sal
+INNER JOIN seniority as sen
 ON salaries.employee_id = seniority.employee_id
 
 -- OR
