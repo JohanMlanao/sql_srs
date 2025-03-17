@@ -56,4 +56,11 @@ con.execute("CREATE TABLE IF NOT EXISTS customers AS SELECT * FROM customers")
 products = ij.get_products_data()
 con.execute("CREATE TABLE IF NOT EXISTS products AS SELECT * FROM products")
 
+real_products, product_category, universe_category, sales = ij.get_real_life_data_inner_join()
+con.execute("CREATE TABLE IF NOT EXISTS real_products AS SELECT * FROM real_products")
+con.execute("CREATE TABLE IF NOT EXISTS product_category AS SELECT * FROM product_category")
+con.execute("CREATE TABLE IF NOT EXISTS universe_category AS SELECT * FROM universe_category")
+con.execute("CREATE TABLE IF NOT EXISTS sales AS SELECT * FROM sales")
+
+
 con.close()
