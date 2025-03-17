@@ -123,7 +123,7 @@ with st.sidebar:
     )
 
     exercise = get_exercise(theme)
-    st.write(exercise)
+    st.write(exercise[["exercise_name", "tables", "last_reviewed"]])
     exercise_name = exercise.loc[0, "exercise_name"]
     with open(f"questions/{exercise_name}.txt", "r") as q:
         question = q.read()
