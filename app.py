@@ -6,6 +6,7 @@ from datetime import date, timedelta
 
 import duckdb
 import streamlit as st
+from streamlit_option_menu import option_menu
 
 
 def create_database():
@@ -49,7 +50,7 @@ def get_exercise(user_theme: str):
     :param user_theme: a string containing the theme chosen by the user
     """
     if user_theme:
-        st.write(f"You selected: {user_theme}")
+        # st.write(f"You selected: {user_theme}")
         select_exercise_query = (
             f"SELECT * FROM memory_state WHERE theme = '{user_theme}'"
         )
@@ -114,11 +115,11 @@ with st.sidebar:
         st.image("logo/SQL_SRS_logo.png", width=225)
         # st.markdown("####")
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
-    theme = st.selectbox(
+    theme = option_menu(
         "What would you like to review ?",
-        available_themes_df["theme"].unique(),
-        index=None,
-        placeholder="Select a theme...",
+        ["Cross join", "Inner join"],
+        menu_icon="intersect",
+        default_index=0,
     )
 
     exercise = get_exercise(theme)
