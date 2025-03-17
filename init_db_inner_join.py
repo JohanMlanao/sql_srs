@@ -8,8 +8,8 @@ def get_memory_state_inner_join():
     Create and return a pandas DataFrame containing all the basic information for all inner join exercises
     """
     data = {
-        "theme": ["inner_joins", "inner_joins"],
-        "exercise_name": ["salaries_and_seniority", "orders_and_details"],
+        "theme": ["Inner join", "Inner join"],
+        "exercise_name": ["Salaries and seniority", "Orders and details"],
         "tables": [["salaries", "seniority"], ["orders", "order_details"]],
         "last_reviewed": ["1980-01-01", "1970-01-01"],
     }
