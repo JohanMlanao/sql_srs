@@ -50,4 +50,10 @@ orders, order_details = ij.get_orders_and_details()
 con.execute("CREATE TABLE IF NOT EXISTS orders AS SELECT * FROM orders")
 con.execute("CREATE TABLE IF NOT EXISTS order_details AS SELECT * FROM order_details")
 
+customers = ij.get_customers_data()
+con.execute("CREATE TABLE IF NOT EXISTS customers AS SELECT * FROM customers")
+
+products = ij.get_products_data()
+con.execute("CREATE TABLE IF NOT EXISTS products AS SELECT * FROM products")
+
 con.close()
