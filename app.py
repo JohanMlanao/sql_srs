@@ -47,7 +47,7 @@ def check_users_solution(user_query: str) -> None:
             )
         elif n_columns_difference != 0:
             st.write(
-                f"Result has a {n_columns_difference} lines difference with the solution."
+                f"Result has a {n_columns_difference} columns difference with the solution."
             )
 
 
