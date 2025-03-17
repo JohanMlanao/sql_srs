@@ -8,12 +8,12 @@ def get_memory_state_cross_join():
     Create and returns a pandas DataFrame containing all the basic information for all exercises
     """
     data = {
-        "theme": ["cross_joins", "cross_joins", "cross_joins", "cross_joins"],
+        "theme": ["Cross join", "Cross join", "Cross join", "Cross join"],
         "exercise_name": [
-            "beverages_and_food",
-            "sizes_and_trademarks",
-            "hours_and_minutes",
-            "real_life_case",
+            "Beverages and food",
+            "Sizes and trademarks",
+            "Hours and minutes",
+            "Real life cross-join",
         ],
         "tables": [
             ["beverages", "food_items"],
