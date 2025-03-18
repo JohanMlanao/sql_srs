@@ -125,7 +125,7 @@ with st.sidebar:
     available_themes_df = con.execute("SELECT DISTINCT theme FROM memory_state").df()
     theme = option_menu(
         "What would you like to review ?",
-        ["Cross join", "Inner join", "Left join", "Full outer join"],
+        ["Cross join", "Inner join", "Left join", "Full outer join", "Self join"],
         menu_icon="intersect",
         default_index=0,
     )

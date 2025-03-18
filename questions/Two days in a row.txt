@@ -1,0 +1,4 @@
+Find all the customers that came two days in a row :
+    - Make a self join (LEFT or INNER JOIN) to retrieve all the possible combinations.
+    - Remove lines with the same order_id.
+    - Keep only rows where the difference between the dates is equal to 1.

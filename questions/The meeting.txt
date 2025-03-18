@@ -1,0 +1,4 @@
+Calculate the time that Benjamin spend with his colleagues during each meeting with the following steps :
+    - Create a table with all the possible combinations of people present at the same meeting
+    - Keep only records where the first person name is Benjamin
+    - Remove lines when Benjamin is in a meeting with himself
