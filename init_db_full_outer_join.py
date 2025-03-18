@@ -3,7 +3,7 @@ import pandas as pd
 
 def get_memory_state_full_outer_join():
     """
-    Create and return a pandas DataFrame containing all the basic information for all inner join exercises
+    Create and return a pandas DataFrame containing all the basic information for all full outer join exercises
     """
     data = {
         "theme": ["Full outer join"],
