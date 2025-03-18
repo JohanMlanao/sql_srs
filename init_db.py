@@ -40,7 +40,7 @@ con.execute("CREATE TABLE IF NOT EXISTS markets AS SELECT * FROM markets")
 con.execute("CREATE TABLE IF NOT EXISTS quarters AS SELECT * FROM quarters")
 
 # ------------------------------------------------------------
-# INNER JOIN TABLES
+# INNER JOIN and LEFT JOIN TABLES
 # ------------------------------------------------------------
 
 salaries, seniority = ij.get_salaries_and_seniority()
@@ -58,7 +58,7 @@ products = ij.get_products_data()
 con.execute("CREATE TABLE IF NOT EXISTS products AS SELECT * FROM products")
 
 real_products, product_category, universe_category, sales = (
-    ij.get_real_life_data_inner_join()
+    lj.get_real_life_data_left_join()
 )
 con.execute("CREATE TABLE IF NOT EXISTS real_products AS SELECT * FROM real_products")
 con.execute(
@@ -68,28 +68,5 @@ con.execute(
     "CREATE TABLE IF NOT EXISTS universe_category AS SELECT * FROM universe_category"
 )
 con.execute("CREATE TABLE IF NOT EXISTS sales AS SELECT * FROM sales")
-
-# ------------------------------------------------------------
-# LEFT JOIN TABLES
-# ------------------------------------------------------------
-
-# Data uses in this part is the data uses in the INNER JOIN part except real life data
-
-(
-    real_products_custom,
-    product_category_custom,
-    universe_category_custom,
-    sales_custom,
-) = lj.get_real_life_data_left_join()
-con.execute(
-    "CREATE TABLE IF NOT EXISTS real_products_custom AS SELECT * FROM real_products_custom"
-)
-con.execute(
-    "CREATE TABLE IF NOT EXISTS product_category_custom AS SELECT * FROM product_category_custom"
-)
-con.execute(
-    "CREATE TABLE IF NOT EXISTS universe_category_custom AS SELECT * FROM universe_category_custom"
-)
-con.execute("CREATE TABLE IF NOT EXISTS sales_custom AS SELECT * FROM sales_custom")
 
 con.close()
