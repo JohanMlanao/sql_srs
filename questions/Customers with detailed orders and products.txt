@@ -1,0 +1,1 @@
+Make three LEFT JOIN to retrieve customers with detailed orders and products.
