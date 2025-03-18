@@ -1,7 +1,7 @@
 SELECT *
-FROM sales_custom
-LEFT JOIN product_category_custom
+FROM sales
+LEFT JOIN product_category
 USING (product_id)
-LEFT JOIN universe_category_custom
+LEFT JOIN universe_category
 USING (category_id)
 WHERE universe_name IS NULL
