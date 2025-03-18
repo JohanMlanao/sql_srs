@@ -1,0 +1,1 @@
+Make two LEFT JOIN to retrieve customers with detailed orders.
