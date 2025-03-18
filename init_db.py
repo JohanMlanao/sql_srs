@@ -4,6 +4,7 @@ import pandas as pd
 import init_db_cross_join as cj
 import init_db_inner_join as ij
 import init_db_left_join as lj
+import init_db_full_outer_join as fj
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
@@ -13,7 +14,10 @@ con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=Fals
 memory_state_cj = cj.get_memory_state_cross_join()
 memory_state_ij = ij.get_memory_state_inner_join()
 memory_state_lj = lj.get_memory_state_left_join()
-memory_state_df = pd.concat([memory_state_cj, memory_state_ij, memory_state_lj])
+memory_state_fj = fj.get_memory_state_full_outer_join()
+memory_state_df = pd.concat(
+    [memory_state_cj, memory_state_ij, memory_state_lj, memory_state_fj]
+)
 
 con.execute("CREATE TABLE IF NOT EXISTS memory_state AS SELECT * FROM memory_state_df")
 
@@ -68,5 +72,23 @@ con.execute(
     "CREATE TABLE IF NOT EXISTS universe_category AS SELECT * FROM universe_category"
 )
 con.execute("CREATE TABLE IF NOT EXISTS sales AS SELECT * FROM sales")
+
+# ------------------------------------------------------------
+# FULL OUTER JOIN TABLES
+# ------------------------------------------------------------
+
+full_customers = fj.get_customers()
+con.execute("CREATE TABLE IF NOT EXISTS full_customers AS SELECT * FROM full_customers")
+
+full_stores = fj.get_stores()
+con.execute("CREATE TABLE IF NOT EXISTS full_stores AS SELECT * FROM full_stores")
+
+full_store_products = fj.get_store_products()
+con.execute(
+    "CREATE TABLE IF NOT EXISTS full_store_products AS SELECT * FROM full_store_products"
+)
+
+full_products = fj.get_products()
+con.execute("CREATE TABLE IF NOT EXISTS full_products AS SELECT * FROM full_products")
 
 con.close()

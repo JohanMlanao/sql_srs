@@ -1,0 +1,1 @@
+Link all customer to their respective store and products with LEFT JOINs then use FULL OUTER JOIN to retrieve product details.
