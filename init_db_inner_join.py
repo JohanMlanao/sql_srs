@@ -16,7 +16,7 @@ def get_memory_state_inner_join():
             "Orders and details",
             "Detailed orders and customers",
             "Detailed orders with customers and products",
-            "Real life inner-join"
+            "Real life inner-join",
         ],
         "tables": [
             ["salaries", "seniority"],
@@ -25,7 +25,13 @@ def get_memory_state_inner_join():
             ["orders", "order_details", "customers", "products"],
             ["real_products", "product_category", "universe_category", "sales"],
         ],
-        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1970-01-01", "1969-01-01"],
+        "last_reviewed": [
+            "1980-01-01",
+            "1970-01-01",
+            "1970-01-01",
+            "1970-01-01",
+            "1969-01-01",
+        ],
     }
     return pd.DataFrame(data)
 

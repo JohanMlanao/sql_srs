@@ -3,6 +3,7 @@ import pandas as pd
 
 import init_db_cross_join as cj
 import init_db_inner_join as ij
+import init_db_left_join as lj
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
@@ -11,13 +12,13 @@ con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=Fals
 # ------------------------------------------------------------
 memory_state_cj = cj.get_memory_state_cross_join()
 memory_state_ij = ij.get_memory_state_inner_join()
-memory_state_df = pd.concat([memory_state_cj, memory_state_ij])
-
+memory_state_lj = lj.get_memory_state_left_join()
+memory_state_df = pd.concat([memory_state_cj, memory_state_ij, memory_state_lj])
 
 con.execute("CREATE TABLE IF NOT EXISTS memory_state AS SELECT * FROM memory_state_df")
 
 # ------------------------------------------------------------
-# CROSS JOIN EXERCISES
+# CROSS JOIN TABLES
 # ------------------------------------------------------------
 beverages, food_items = cj.get_beverages_and_food_items()
 con.execute("CREATE TABLE IF NOT EXISTS beverages AS SELECT * FROM beverages")
@@ -39,7 +40,7 @@ con.execute("CREATE TABLE IF NOT EXISTS markets AS SELECT * FROM markets")
 con.execute("CREATE TABLE IF NOT EXISTS quarters AS SELECT * FROM quarters")
 
 # ------------------------------------------------------------
-# INNER JOIN EXERCISES
+# INNER JOIN TABLES
 # ------------------------------------------------------------
 
 salaries, seniority = ij.get_salaries_and_seniority()
@@ -56,11 +57,39 @@ con.execute("CREATE TABLE IF NOT EXISTS customers AS SELECT * FROM customers")
 products = ij.get_products_data()
 con.execute("CREATE TABLE IF NOT EXISTS products AS SELECT * FROM products")
 
-real_products, product_category, universe_category, sales = ij.get_real_life_data_inner_join()
+real_products, product_category, universe_category, sales = (
+    ij.get_real_life_data_inner_join()
+)
 con.execute("CREATE TABLE IF NOT EXISTS real_products AS SELECT * FROM real_products")
-con.execute("CREATE TABLE IF NOT EXISTS product_category AS SELECT * FROM product_category")
-con.execute("CREATE TABLE IF NOT EXISTS universe_category AS SELECT * FROM universe_category")
+con.execute(
+    "CREATE TABLE IF NOT EXISTS product_category AS SELECT * FROM product_category"
+)
+con.execute(
+    "CREATE TABLE IF NOT EXISTS universe_category AS SELECT * FROM universe_category"
+)
 con.execute("CREATE TABLE IF NOT EXISTS sales AS SELECT * FROM sales")
 
+# ------------------------------------------------------------
+# LEFT JOIN TABLES
+# ------------------------------------------------------------
+
+# Data uses in this part is the data uses in the INNER JOIN part except real life data
+
+(
+    real_products_custom,
+    product_category_custom,
+    universe_category_custom,
+    sales_custom,
+) = lj.get_real_life_data_left_join()
+con.execute(
+    "CREATE TABLE IF NOT EXISTS real_products_custom AS SELECT * FROM real_products_custom"
+)
+con.execute(
+    "CREATE TABLE IF NOT EXISTS product_category_custom AS SELECT * FROM product_category_custom"
+)
+con.execute(
+    "CREATE TABLE IF NOT EXISTS universe_category_custom AS SELECT * FROM universe_category_custom"
+)
+con.execute("CREATE TABLE IF NOT EXISTS sales_custom AS SELECT * FROM sales_custom")
 
 con.close()
