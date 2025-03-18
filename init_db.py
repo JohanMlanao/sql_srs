@@ -2,9 +2,10 @@ import duckdb
 import pandas as pd
 
 import init_db_cross_join as cj
+import init_db_full_outer_join as fj
 import init_db_inner_join as ij
 import init_db_left_join as lj
-import init_db_full_outer_join as fj
+import init_db_self_join as sj
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
@@ -15,8 +16,15 @@ memory_state_cj = cj.get_memory_state_cross_join()
 memory_state_ij = ij.get_memory_state_inner_join()
 memory_state_lj = lj.get_memory_state_left_join()
 memory_state_fj = fj.get_memory_state_full_outer_join()
+memory_state_sj = sj.get_memory_state_self_join()
 memory_state_df = pd.concat(
-    [memory_state_cj, memory_state_ij, memory_state_lj, memory_state_fj]
+    [
+        memory_state_cj,
+        memory_state_ij,
+        memory_state_lj,
+        memory_state_fj,
+        memory_state_sj,
+    ]
 )
 
 con.execute("CREATE TABLE IF NOT EXISTS memory_state AS SELECT * FROM memory_state_df")
@@ -90,5 +98,15 @@ con.execute(
 
 full_products = fj.get_products()
 con.execute("CREATE TABLE IF NOT EXISTS full_products AS SELECT * FROM full_products")
+
+# ------------------------------------------------------------
+# SELF JOIN TABLES
+# ------------------------------------------------------------
+
+self_sales = sj.get_sales()
+con.execute("CREATE TABLE IF NOT EXISTS self_sales AS SELECT * FROM self_sales")
+
+meetings = sj.get_meetings()
+con.execute("CREATE TABLE IF NOT EXISTS meetings AS SELECT * FROM meetings")
 
 con.close()
