@@ -7,6 +7,7 @@ import init_db_group_by as gb
 import init_db_inner_join as ij
 import init_db_left_join as lj
 import init_db_self_join as sj
+import init_db_grouping_sets as gs
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
@@ -19,6 +20,7 @@ memory_state_lj = lj.get_memory_state_left_join()
 memory_state_fj = fj.get_memory_state_full_outer_join()
 memory_state_sj = sj.get_memory_state_self_join()
 memory_state_gb = gb.get_memory_state_group_by()
+memory_state_gs = gs.get_memory_state_grouping_sets()
 memory_state_df = pd.concat(
     [
         memory_state_cj,
@@ -27,6 +29,7 @@ memory_state_df = pd.concat(
         memory_state_fj,
         memory_state_sj,
         memory_state_gb,
+        memory_state_gs,
     ]
 )
 
@@ -118,5 +121,13 @@ con.execute("CREATE TABLE IF NOT EXISTS meetings AS SELECT * FROM meetings")
 
 gb_sales = gb.get_sales()
 con.execute("CREATE TABLE IF NOT EXISTS gb_sales AS SELECT * FROM gb_sales")
+
+# ------------------------------------------------------------
+# GROUPING SETS, ROLLUP and CUBE
+# ------------------------------------------------------------
+
+health_care = gs.get_health_care()
+con.execute("CREATE TABLE IF NOT EXISTS health_care AS SELECT * FROM health_care")
+
 
 con.close()

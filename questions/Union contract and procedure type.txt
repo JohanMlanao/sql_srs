@@ -1,0 +1,2 @@
+Using UNION or GROUPING SETS retrieve the total reimbursement amount for each contract type AND for each procedure type.
+Find a way to merge contract and procedure column together as typology column. Sort the table by typology.
