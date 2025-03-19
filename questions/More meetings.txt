@@ -1,0 +1,8 @@
+Calculate average duration spent with each colleague during meetings :
+    - Create a table with all the possible combinations of people present at the same meeting.
+    - Keep only records where the first person name is Benjamin.
+    - Remove lines when Benjamin is in a meeting with himself.
+    - Store it in a subquery.
+    - From this subquery, group by colleague to calculate the average duration.
+    - Sort alphabetically by colleague.
+
