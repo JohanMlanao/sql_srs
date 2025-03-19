@@ -2,4 +2,4 @@ Find all the customers that came two days in a row :
     - Make a self join (LEFT or INNER JOIN) to retrieve all the possible combinations.
     - Remove lines with the same order_id.
     - Keep only rows where the difference between the dates is equal to 1.
-You should have 5 columns in the end.
+In the end, you should have the following columns : customer_id, first_order, date_first_order, second_order, date_next_order.
