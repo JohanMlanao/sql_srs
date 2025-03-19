@@ -1,0 +1,1 @@
+Calculate each customer's average purchase. Sort the answer by client alphabetically.

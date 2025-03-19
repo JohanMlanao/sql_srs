@@ -1,5 +1,5 @@
 SELECT
-l.meeting_id as meeting_id,
+l.meeting_id,
 l.person_name,
 l.duration_minutes,
 r.person_name

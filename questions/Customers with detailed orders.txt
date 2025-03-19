@@ -1,1 +1,2 @@
 Make two LEFT JOIN to retrieve customers with detailed orders.
+Keep only one order_id column.
