@@ -131,7 +131,7 @@ with st.sidebar:
             "Left join",
             "Full outer join",
             "Self join",
-            "Group by",
+            "Group by, CTE & Having",
         ],
         menu_icon="intersect",
         default_index=0,
