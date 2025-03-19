@@ -1,0 +1,7 @@
+Retrieve the total of reimbursement amounts by : contract_type, procedure_type, age_group, sex and year. But also the result for the following categories :
+    - contract_type/procedure_type/age_group/sex/
+    - contract_type/procedure_type/age_group/
+    - contract_type/procedure_type/
+    - contract_type/
+
+Sort the result by contract_type, procedure_type, age_group, sex and year.

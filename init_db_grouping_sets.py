@@ -1,6 +1,7 @@
 import random
-import pandas as pd
+
 import numpy as np
+import pandas as pd
 
 
 def get_memory_state_grouping_sets():
@@ -8,16 +9,25 @@ def get_memory_state_grouping_sets():
     Create and returns a pandas DataFrame containing all the basic information for all exercises
     """
     data = {
-        "theme": ["Grouping sets, Rollup & Cube", "Grouping sets, Rollup & Cube"],
+        "theme": [
+            "Grouping sets, Rollup & Cube",
+            "Grouping sets, Rollup & Cube",
+            "Grouping sets, Rollup & Cube",
+            "Grouping sets, Rollup & Cube",
+        ],
         "exercise_name": [
             "Union contract and procedure type",
-            "Contract, procedure and subdivision"
+            "Contract, procedure and subdivision",
+            "Ice cube",
+            "Heads will roll",
         ],
         "tables": [
             ["health_care"],
             ["health_care"],
+            ["health_care"],
+            ["health_care"],
         ],
-        "last_reviewed": ["1980-01-01", "1970-01-01"],
+        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
@@ -68,7 +78,7 @@ def get_health_care():
             "sex": sexe_data,
             "procedure_type": type_acte_data,
             "age_group": groupe_age_data,
-            "year": annee_data,
+            "years": annee_data,
             "reimbursement_amount": cost_data,
         }
     )
