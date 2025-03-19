@@ -1,0 +1,3 @@
+Find all the customers whose average purchases are higher than the overall average purchases.
+You need to use HAVING or CTE.
+Sort customers alphabetically.
