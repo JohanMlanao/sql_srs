@@ -4,10 +4,10 @@ import pandas as pd
 import init_db_cross_join as cj
 import init_db_full_outer_join as fj
 import init_db_group_by as gb
+import init_db_grouping_sets as gs
 import init_db_inner_join as ij
 import init_db_left_join as lj
 import init_db_self_join as sj
-import init_db_grouping_sets as gs
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
