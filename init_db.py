@@ -3,6 +3,7 @@ import pandas as pd
 
 import init_db_cross_join as cj
 import init_db_full_outer_join as fj
+import init_db_group_by as gb
 import init_db_inner_join as ij
 import init_db_left_join as lj
 import init_db_self_join as sj
@@ -17,6 +18,7 @@ memory_state_ij = ij.get_memory_state_inner_join()
 memory_state_lj = lj.get_memory_state_left_join()
 memory_state_fj = fj.get_memory_state_full_outer_join()
 memory_state_sj = sj.get_memory_state_self_join()
+memory_state_gb = gb.get_memory_state_group_by()
 memory_state_df = pd.concat(
     [
         memory_state_cj,
@@ -24,6 +26,7 @@ memory_state_df = pd.concat(
         memory_state_lj,
         memory_state_fj,
         memory_state_sj,
+        memory_state_gb,
     ]
 )
 
@@ -108,5 +111,12 @@ con.execute("CREATE TABLE IF NOT EXISTS self_sales AS SELECT * FROM self_sales")
 
 meetings = sj.get_meetings()
 con.execute("CREATE TABLE IF NOT EXISTS meetings AS SELECT * FROM meetings")
+
+# ------------------------------------------------------------
+# GROUP BY TABLES
+# ------------------------------------------------------------
+
+gb_sales = gb.get_sales()
+con.execute("CREATE TABLE IF NOT EXISTS gb_sales AS SELECT * FROM gb_sales")
 
 con.close()
