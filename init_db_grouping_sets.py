@@ -8,14 +8,16 @@ def get_memory_state_grouping_sets():
     Create and returns a pandas DataFrame containing all the basic information for all exercises
     """
     data = {
-        "theme": ["Grouping sets, Rollup & Cube"],
+        "theme": ["Grouping sets, Rollup & Cube", "Grouping sets, Rollup & Cube"],
         "exercise_name": [
             "Union contract and procedure type",
+            "Contract, procedure and subdivision"
         ],
         "tables": [
             ["health_care"],
+            ["health_care"],
         ],
-        "last_reviewed": ["1980-01-01"],
+        "last_reviewed": ["1980-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
