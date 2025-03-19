@@ -1,0 +1,1 @@
+Using ROLLUP retrieve the total reimbursement amount for each contract type and for the combination of the contract and the procedure type. Sort the table by contract and procedure type.

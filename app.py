@@ -132,6 +132,7 @@ with st.sidebar:
             "Full outer join",
             "Self join",
             "Group by, CTE & Having",
+            "Grouping sets, Rollup & Cube",
         ],
         menu_icon="intersect",
         default_index=0,
