@@ -1,0 +1,8 @@
+Use a CTE to retrieve clients whose total purchases is higher than the average purchase totals of other customers:
+    - Make a query to get total purchases for each client.
+    - Store it in a subquery.
+    - From this subquery, make another query to get the average of these purchase totals.
+    - Store it in a second subquery.
+    - From this second subquery, retrieve clients with their total amount spent and filter on clients whose total is higher than the average calculated on the second subquery.
+
+Rename Sum(amount) by total_sales and sort clients alphabetically.
