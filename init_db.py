@@ -113,7 +113,7 @@ meetings = sj.get_meetings()
 con.execute("CREATE TABLE IF NOT EXISTS meetings AS SELECT * FROM meetings")
 
 # ------------------------------------------------------------
-# GROUP BY TABLES
+# GROUP BY, HAVING and CTE TABLES
 # ------------------------------------------------------------
 
 gb_sales = gb.get_sales()
