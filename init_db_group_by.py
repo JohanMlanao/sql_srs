@@ -10,14 +10,16 @@ def get_memory_state_group_by():
             "Group by, CTE & Having",
             "Group by, CTE & Having",
             "Group by, CTE & Having",
+            "Group by, CTE & Having",
         ],
         "exercise_name": [
             "Average purchase",
             "Above average purchase",
             "Average sum of sales",
+            "More meetings",
         ],
-        "tables": [["gb_sales"], ["gb_sales"], ["gb_sales"]],
-        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01"],
+        "tables": [["gb_sales"], ["gb_sales"], ["gb_sales"], ["meetings"]],
+        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
