@@ -1,0 +1,4 @@
+Retrieve all columns from the cw_orders table and add a column order_category with the following values:
+    - IF order_amount < 200 THEN "Small"
+    - IF order_amount >= 200 AND order_amount < 800 THEN "Medium"
+    - ELSE "Large"
