@@ -1,6 +1,7 @@
 import duckdb
 import pandas as pd
 
+import init_db_case_when as cw
 import init_db_cross_join as cj
 import init_db_full_outer_join as fj
 import init_db_group_by as gb
@@ -8,7 +9,6 @@ import init_db_grouping_sets as gs
 import init_db_inner_join as ij
 import init_db_left_join as lj
 import init_db_self_join as sj
-import init_db_case_when as cw
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
@@ -138,5 +138,8 @@ con.execute("CREATE TABLE IF NOT EXISTS health_care AS SELECT * FROM health_care
 
 cw_orders = cw.get_cw_orders()
 con.execute("CREATE TABLE IF NOT EXISTS cw_orders AS SELECT * FROM cw_orders")
+
+wages = cw.get_wages()
+con.execute("CREATE TABLE IF NOT EXISTS wages AS SELECT * FROM wages")
 
 con.close()
