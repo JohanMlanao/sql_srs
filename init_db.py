@@ -142,4 +142,7 @@ con.execute("CREATE TABLE IF NOT EXISTS cw_orders AS SELECT * FROM cw_orders")
 wages = cw.get_wages()
 con.execute("CREATE TABLE IF NOT EXISTS wages AS SELECT * FROM wages")
 
+redbull = cw.get_redbull()
+con.execute("CREATE TABLE IF NOT EXISTS redbull AS SELECT * FROM redbull")
+
 con.close()

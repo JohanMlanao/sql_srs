@@ -1,0 +1,2 @@
+Using GROUP BY and CASE WHEN retrieve the sum amount of 'redbull' as product_amount, the sum amount as total_amount and the percentage as pct_amount for each store_id.
+Sort the result by store_id alphabetically.
