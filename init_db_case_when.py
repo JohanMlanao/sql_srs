@@ -6,13 +6,10 @@ def get_memory_state_case_when():
     Create and returns a pandas DataFrame containing all the basic information for all exercises
     """
     data = {
-        "theme": ["Case when", "Case when"],
-        "exercise_name": [
-            "Sizes",
-            "The rise",
-        ],
-        "tables": [["cw_orders"], ["wages"]],
-        "last_reviewed": ["1970-01-01", "1970-01-01"],
+        "theme": ["Case when", "Case when", "Case when", "Case when"],
+        "exercise_name": ["Sizes", "The rise", "Wings", "Income by category"],
+        "tables": [["cw_orders"], ["wages"], ["redbull"], ["wages"]],
+        "last_reviewed": ["1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
@@ -86,5 +83,40 @@ def get_wages():
             "SALES",
             "CEO",
         ],
+    }
+    return pd.DataFrame(data)
+
+
+def get_redbull():
+    data = {
+        "store_id": [
+            "Armentieres",
+            "Armentieres",
+            "Armentieres",
+            "Armentieres",
+            "Lille",
+            "Lille",
+            "Lille",
+            "Lille",
+            "Douai",
+            "Douai",
+            "Douai",
+            "Douai",
+        ],
+        "product_name": [
+            "redbull",
+            "chips",
+            "wine",
+            "redbull",
+            "redbull",
+            "chips",
+            "wine",
+            "icecream",
+            "redbull",
+            "chips",
+            "wine",
+            "icecream",
+        ],
+        "amount": [45, 60, 60, 45, 100, 140, 190, 170, 55, 70, 20, 45],
     }
     return pd.DataFrame(data)
