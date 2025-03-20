@@ -1,0 +1,5 @@
+USING CTE, CASE WHEN and GROUP BY, retrieve the department, average_salary and the salary range :
+    - Wage <= 50000 then salary_range = 'Low'.
+    - Wage < 90000 then salary_range = 'Medium'.
+    - Else 'High'.
+Group by department and salary range then add a column with the number of employees as nb_employees in each group. Sort the result by department and salary_range.

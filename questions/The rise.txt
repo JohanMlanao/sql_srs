@@ -1,0 +1,6 @@
+Retrieve name and department columns from wages table.
+Add a new column wage_with_rise in which you will apply the following rises :
+    - 10% rise for the "SALES" department
+    - 5% rise for the "HR" department
+    - 3% rise for the "IT" department
+    - 0% for the others
