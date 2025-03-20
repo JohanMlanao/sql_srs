@@ -9,6 +9,7 @@ import init_db_grouping_sets as gs
 import init_db_inner_join as ij
 import init_db_left_join as lj
 import init_db_self_join as sj
+import init_db_window_function as wf
 
 con = duckdb.connect(database="data/exercises_sql_tables.duckdb", read_only=False)
 
@@ -23,6 +24,7 @@ memory_state_sj = sj.get_memory_state_self_join()
 memory_state_gb = gb.get_memory_state_group_by()
 memory_state_gs = gs.get_memory_state_grouping_sets()
 memory_state_cw = cw.get_memory_state_case_when()
+memory_state_wf = wf.get_memory_state_window_function()
 memory_state_df = pd.concat(
     [
         memory_state_cj,
@@ -33,6 +35,7 @@ memory_state_df = pd.concat(
         memory_state_gb,
         memory_state_gs,
         memory_state_cw,
+        memory_state_wf,
     ]
 )
 
@@ -144,5 +147,12 @@ con.execute("CREATE TABLE IF NOT EXISTS wages AS SELECT * FROM wages")
 
 redbull = cw.get_redbull()
 con.execute("CREATE TABLE IF NOT EXISTS redbull AS SELECT * FROM redbull")
+
+# ------------------------------------------------------------
+# WINDOW FUNCTION
+# ------------------------------------------------------------
+
+furniture = wf.get_furniture()
+con.execute("CREATE TABLE IF NOT EXISTS furniture AS SELECT * FROM furniture")
 
 con.close()
