@@ -1,0 +1,1 @@
+Retrieve all columns from wf_sales and a running_total, a running_count and a running_mean column.

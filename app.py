@@ -134,6 +134,7 @@ with st.sidebar:
             "Group by, CTE & Having",
             "Grouping sets, Rollup & Cube",
             "Case when",
+            "Window function",
         ],
         menu_icon="intersect",
         default_index=0,

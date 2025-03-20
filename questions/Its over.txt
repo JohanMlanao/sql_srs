@@ -1,0 +1,1 @@
+Retrieve all the columns from the furniture table and add a column total_weight which return the total weight of all the items in the table.
