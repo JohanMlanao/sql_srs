@@ -133,6 +133,7 @@ with st.sidebar:
             "Self join",
             "Group by, CTE & Having",
             "Grouping sets, Rollup & Cube",
+            "Case when",
         ],
         menu_icon="intersect",
         default_index=0,
