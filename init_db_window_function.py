@@ -1,6 +1,7 @@
 import random
-import pandas as pd
 from datetime import datetime, timedelta
+
+import pandas as pd
 
 
 def get_memory_state_window_function():
@@ -8,10 +9,10 @@ def get_memory_state_window_function():
     Create and returns a pandas DataFrame containing all the basic information for all exercises
     """
     data = {
-        "theme": ["Window function"],
-        "exercise_name": ["It's over"],
-        "tables": [["furniture"]],
-        "last_reviewed": ["1970-01-01"],
+        "theme": ["Window function", "Window function"],
+        "exercise_name": ["Its over", "Move it"],
+        "tables": [["furniture"], ["wf_sales"]],
+        "last_reviewed": ["1970-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
@@ -35,8 +36,8 @@ def get_furniture():
 def get_sales():
     start_date = datetime(2023, 9, 1)
     end_date = datetime(2023, 9, 30)
-    date_range = [start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)]
+    date_range = [
+        start_date + timedelta(days=x) for x in range((end_date - start_date).days + 1)
+    ]
     sales_data = [random.randint(1, 7) * 1000 for _ in range(len(date_range))]
     return pd.DataFrame({"date": date_range, "daily_sales": sales_data})
-
-

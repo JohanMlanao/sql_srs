@@ -155,4 +155,7 @@ con.execute("CREATE TABLE IF NOT EXISTS redbull AS SELECT * FROM redbull")
 furniture = wf.get_furniture()
 con.execute("CREATE TABLE IF NOT EXISTS furniture AS SELECT * FROM furniture")
 
+wf_sales = wf.get_sales()
+con.execute("CREATE TABLE IF NOT EXISTS wf_sales AS SELECT * FROM wf_sales")
+
 con.close()
