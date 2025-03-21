@@ -1,0 +1,3 @@
+Retrieve all columns from wf_sales and add :
+    - A column moving_total that calculates the moving total between 1 preceding and 1 following row.
+    - A column moving_average that calculates the moving_average between 1 preceding and 1 following row.

@@ -9,10 +9,15 @@ def get_memory_state_window_function():
     Create and returns a pandas DataFrame containing all the basic information for all exercises
     """
     data = {
-        "theme": ["Window function", "Window function", "Window function"],
-        "exercise_name": ["Its over", "Move it", "Bi-twin"],
-        "tables": [["furniture"], ["wf_sales"], ["wf_sales"]],
-        "last_reviewed": ["1970-01-01", "1970-01-01", "1970-01-01"],
+        "theme": [
+            "Window function",
+            "Window function",
+            "Window function",
+            "Window function",
+        ],
+        "exercise_name": ["Its over", "Move it", "Bi-twin", "Before and after"],
+        "tables": [["furniture"], ["wf_sales"], ["wf_sales"], ["wf_sales"]],
+        "last_reviewed": ["1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
     }
     return pd.DataFrame(data)
 
