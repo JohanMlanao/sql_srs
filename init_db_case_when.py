@@ -83,6 +83,23 @@ def get_wages():
             "SALES",
             "CEO",
         ],
+        "sex": [
+            "H",
+            "H",
+            "H",
+            "F",
+            "F",
+            "H",
+            "F",
+            "H",
+            "H",
+            "F",
+            "F",
+            "H",
+            "F",
+            "H",
+            "H",
+        ],
     }
     return pd.DataFrame(data)
 

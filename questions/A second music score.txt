@@ -1,0 +1,4 @@
+Create a column that displays the second-highest salary per department in the wages table:
+    - Use a CTE to find the highest salary per department from wages table.
+    - Filter this CTE to exclude the maximum.
+    - Keep only the column name, wage, department, max_dpt_wage and second_max_dpt_wage.
