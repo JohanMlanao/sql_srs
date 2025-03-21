@@ -14,10 +14,23 @@ def get_memory_state_window_function():
             "Window function",
             "Window function",
             "Window function",
+            "Window function",
         ],
-        "exercise_name": ["Its over", "Move it", "Bi-twin", "Before and after"],
-        "tables": [["furniture"], ["wf_sales"], ["wf_sales"], ["wf_sales"]],
-        "last_reviewed": ["1970-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
+        "exercise_name": [
+            "Its over",
+            "Move it",
+            "Bi-twin",
+            "Before and after",
+            "A music score",
+        ],
+        "tables": [["furniture"], ["wf_sales"], ["wf_sales"], ["wf_sales"], ["wages"]],
+        "last_reviewed": [
+            "1970-01-01",
+            "1970-01-01",
+            "1970-01-01",
+            "1970-01-01",
+            "1970-01-01",
+        ],
     }
     return pd.DataFrame(data)
 
