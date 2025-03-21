@@ -15,6 +15,7 @@ def get_memory_state_window_function():
             "Window function",
             "Window function",
             "Window function",
+            "Window function",
         ],
         "exercise_name": [
             "Its over",
@@ -22,9 +23,18 @@ def get_memory_state_window_function():
             "Bi-twin",
             "Before and after",
             "A music score",
+            "A second music score",
         ],
-        "tables": [["furniture"], ["wf_sales"], ["wf_sales"], ["wf_sales"], ["wages"]],
+        "tables": [
+            ["furniture"],
+            ["wf_sales"],
+            ["wf_sales"],
+            ["wf_sales"],
+            ["wages"],
+            ["wages"],
+        ],
         "last_reviewed": [
+            "1970-01-01",
             "1970-01-01",
             "1970-01-01",
             "1970-01-01",
