@@ -16,6 +16,7 @@ def get_memory_state_window_function():
             "Window function",
             "Window function",
             "Window function",
+            "Window function",
         ],
         "exercise_name": [
             "Its over",
@@ -24,6 +25,7 @@ def get_memory_state_window_function():
             "Before and after",
             "A music score",
             "A second music score",
+            "Ranking",
         ],
         "tables": [
             ["furniture"],
@@ -32,8 +34,10 @@ def get_memory_state_window_function():
             ["wf_sales"],
             ["wages"],
             ["wages"],
+            ["wages"],
         ],
         "last_reviewed": [
+            "1970-01-01",
             "1970-01-01",
             "1970-01-01",
             "1970-01-01",

@@ -1,0 +1,1 @@
+Retrieve all columns from the wages table and add a new column index that get the salary ranking for men and women. Sort the final table by sex.
