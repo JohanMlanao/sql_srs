@@ -1,1 +1,1 @@
-Find the sales without universe.
+Find the sales without universe.  Keep a single product_id and category_id column.
