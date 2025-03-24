@@ -19,7 +19,7 @@ def get_memory_state_cross_join():
             ["beverages", "food_items"],
             ["sizes", "trademarks"],
             ["hours", "minutes"],
-            ["stores", "months", "days", "markets", "quarters"],
+            ["stores", "markets", "months", "days", "quarters"],
         ],
         "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1970-01-01"],
     }
