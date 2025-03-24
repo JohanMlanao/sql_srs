@@ -1,4 +1,4 @@
-Use a CTE to retrieve clients whose total purchases is higher than the average purchase totals of other customers:
+Use a CTE to retrieve clients whose total purchases is higher than the average purchase totals of all clients:
     - Make a query to get total purchases for each client.
     - Store it in a subquery.
     - From this subquery, make another query to get the average of these purchase totals.
