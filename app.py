@@ -5,32 +5,40 @@ import sys
 from datetime import date, timedelta
 
 import duckdb
+import pandas as pd
 import streamlit as st
 from streamlit_option_menu import option_menu
 
 
 def create_database():
+    """
+    Ensures the 'data' directory and DuckDB database file exist.
+
+    Creates the 'data' folder if missing and runs 'init_db.py' to initialize
+    the 'exercises_sql_tables.duckdb' database if it's not found.
+    """
     if "data" not in os.listdir():
         logging.error(os.listdir())
         logging.error("creating folder data")
         os.mkdir("data")
     if "exercises_sql_tables.duckdb" not in os.listdir("data"):
-        # Méthode "hacky" : exec(open("init_db.py").read())
         subprocess.run([sys.executable, "init_db.py"])
 
 
 def check_users_solution(user_query: str) -> None:
     """
-    Checks that user SQL query is correct by:
-    1: checking the columns
-    2: checking the values
-    :param user_query: a string containing the query inserted by the user
+    Validates a user's SQL query result against a predefined solution DataFrame.
+
+    Args:
+        user_query (str): A valid SQL query string written by the user.
+            Example: "SELECT name FROM customers WHERE age > 30"
+
+    Returns:
+        None: Outputs feedback directly to the Streamlit interface.
     """
     result = con.execute(user_query).df()
     st.dataframe(result)
     try:
-        # result = result[solution_df.columns]
-        # st.dataframe(result.compare(solution_df))
         if result.compare(solution_df).shape == (0, 0):
             st.write("Correct !")
             st.balloons()
@@ -51,19 +59,23 @@ def check_users_solution(user_query: str) -> None:
             )
 
 
-def get_exercise(user_theme: str):
+def get_exercise(user_theme: str) -> pd.DataFrame:
     """
-    Retrieve the longest-running exercise review based on the chosen theme.
-    If there's no selection, it retrieves the longest-running exercise.
-    :param user_theme: a string containing the theme chosen by the user
+    Retrieves exercises matching the given theme, sorted by last reviewed date.
+
+    Args:
+        user_theme (str): Theme of the exercise (e.g. 'joins', 'group by').
+            If empty, retrieves all exercises.
+
+    Returns:
+        pd.DataFrame: A DataFrame of exercises sorted by 'last_reviewed'.
     """
     if user_theme:
-        # st.write(f"You selected: {user_theme}")
         select_exercise_query = (
             f"SELECT * FROM memory_state WHERE theme = '{user_theme}'"
         )
     else:
-        select_exercise_query = f"SELECT * FROM memory_state "
+        select_exercise_query = "SELECT * FROM memory_state"
     user_exercise = (
         con.execute(select_exercise_query)
         .df()
@@ -73,12 +85,18 @@ def get_exercise(user_theme: str):
     return user_exercise
 
 
-def create_srs_button(list_d: list, user_exercise: str) -> None:
+def create_srs_button(list_d: list[int], user_exercise: str) -> None:
     """
-    Create buttons that allow user to delay the next review.
-    :param list_d: a list of integers containing the number of days the user want to delay the review.
-    :param user_exercise: the name of the exercise that the user is currently doing.
-    :return:
+    Creates Streamlit buttons to schedule or reset the review date of an exercise.
+
+    Args:
+        list_d (list[int]): A list of integers representing delay durations in days.
+            Example: [1, 3, 7, 14]
+        user_exercise (str): The name of the exercise to update.
+            Must match the 'exercise_name' field in the database.
+
+    Returns:
+        None: Updates the database and triggers a rerun in the Streamlit app.
     """
     for n_days, col in zip(list_d, st.columns(len(list_d))):
         if col.button(f"Review in {n_days} days", use_container_width=True):
@@ -87,8 +105,9 @@ def create_srs_button(list_d: list, user_exercise: str) -> None:
                 f"UPDATE memory_state SET last_reviewed = '{next_review}' WHERE exercise_name = '{user_exercise}'"
             )
             st.rerun()
+
     if st.button("Reset"):
-        con.execute(f"UPDATE memory_state SET last_reviewed = '1970-01-01'")
+        con.execute("UPDATE memory_state SET last_reviewed = '1970-01-01'")
         st.rerun()
 
 

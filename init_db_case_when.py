@@ -2,9 +2,7 @@ import pandas as pd
 
 
 def get_memory_state_case_when():
-    """
-    Create and returns a pandas DataFrame containing all the basic information for all exercises
-    """
+
     data = {
         "theme": ["Case when", "Case when", "Case when", "Case when"],
         "exercise_name": ["Sizes", "The rise", "Wings", "Income by category"],
