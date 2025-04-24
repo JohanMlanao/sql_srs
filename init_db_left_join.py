@@ -4,38 +4,51 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 
-def get_memory_state_left_join():
+def get_memory_state_left_join() -> pd.DataFrame:
     """
-    Create and return a pandas DataFrame containing all the basic information for all left join exercises
+    Returns a DataFrame containing metadata about left join exercises.
+
+    :return: A Pandas DataFrame containing the theme, exercise names, involved tables, and last reviewed dates.
     """
-    data = {
-        "theme": ["Left join", "Left join", "Left join", "Left join"],
-        "exercise_name": [
-            "Orders with details",
-            "Customers with detailed orders",
-            "Customers with detailed orders and products",
-            "Real life left-join",
-        ],
-        "tables": [
-            ["orders", "order_details"],
-            ["orders", "order_details", "customers"],
-            ["orders", "order_details", "customers", "products"],
-            [
-                "real_products",
-                "product_category",
-                "universe_category",
-                "sales",
+    data = pd.DataFrame(
+        {
+            "theme": ["Left join", "Left join", "Left join", "Left join"],
+            "exercise_name": [
+                "Orders with details",
+                "Customers with detailed orders",
+                "Customers with detailed orders and products",
+                "Real life left-join",
             ],
-        ],
-        "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1969-01-01"],
-    }
-    return pd.DataFrame(data)
+            "tables": [
+                ["orders", "order_details"],
+                ["orders", "order_details", "customers"],
+                ["orders", "order_details", "customers", "products"],
+                [
+                    "real_products",
+                    "product_category",
+                    "universe_category",
+                    "sales",
+                ],
+            ],
+            "last_reviewed": ["1980-01-01", "1970-01-01", "1970-01-01", "1969-01-01"],
+        }
+    )
+    return data
 
 
-def get_real_life_data_left_join():
+def get_real_life_data_left_join() -> (
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]
+):
     """
-    Create and return 4 pandas DataFrames: products,product_category, universe_category, sales
-    :return:
+    Generates and returns four Pandas DataFrames representing a retail dataset.
+
+    The dataset includes:
+    - `products`: Information about product IDs, names, and unit prices.
+    - `product_category`: Mapping of products to their respective categories.
+    - `universe_category`: Mapping of categories to their broader universe classification.
+    - `sales`: Records of product sales over a one-month period.
+
+    :return: A tuple containing four Pandas DataFrames (products, product_category, universe_category, sales).
     """
     universe = ["Électronique", "Mode", "Maison", "Retail_magasin"]
     categories_par_univers = {
@@ -143,29 +156,25 @@ def get_real_life_data_left_join():
     universe_category = (
         df[["universe_id", "universe_name", "category_id"]].drop_duplicates().drop(90)
     )
-    # Un mois de ventes:
+
+    # Generate sales data for one month
     date_debut = datetime(2023, 7, 1)
     date_fin = datetime(2023, 7, 31)
-    jours_dans_le_mois = (date_fin - date_debut).days + 1
     ventes = []
-    for jour in range(jours_dans_le_mois):
+    for jour in range((date_fin - date_debut).days + 1):
         date_vente = date_debut + timedelta(days=jour)
-        n_sales_that_day = range(1, random.randint(10, 300))
-        for vente in n_sales_that_day:
-            products_in_that_sale = products.sample(random.randint(1, 36))
-            for _, row in products_in_that_sale.iterrows():
-                quantite_vendue = random.randint(1, 10)
-                montant_total = row["price_unit"] * quantite_vendue
-                ventes.append(
-                    {
-                        "date": date_vente,
-                        "product_id": row["product_id"],
-                        "sold_quantity": quantite_vendue,
-                        "price_unit": row["price_unit"],
-                        "total_amount": montant_total,
-                    }
-                )
-    # Créer une DataFrame Pandas pour les ventes
+        for _ in range(random.randint(10, 300)):
+            row = products.sample().iloc[0]
+            quantite_vendue = random.randint(1, 10)
+            ventes.append(
+                {
+                    "date": date_vente,
+                    "product_id": row["product_id"],
+                    "sold_quantity": quantite_vendue,
+                    "price_unit": row["price_unit"],
+                    "total_amount": row["price_unit"] * quantite_vendue,
+                }
+            )
     sales = pd.DataFrame(ventes)
 
     return products, product_category, universe_category, sales

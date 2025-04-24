@@ -3,9 +3,14 @@ import io
 import pandas as pd
 
 
-def get_memory_state_cross_join():
+def get_memory_state_cross_join() -> pd.DataFrame:
     """
-    Create and returns a pandas DataFrame containing all the basic information for all exercises
+    Returns a DataFrame containing basic information for all 'Cross join' exercises.
+
+    This method creates a DataFrame that includes themes, exercise names, associated tables,
+    and the last reviewed dates for 'Cross join' exercises.
+
+    :return: A Pandas DataFrame with columns: 'theme', 'exercise_name', 'tables', and 'last_reviewed'.
     """
     data = {
         "theme": ["Cross join", "Cross join", "Cross join", "Cross join"],
@@ -26,9 +31,16 @@ def get_memory_state_cross_join():
     return pd.DataFrame(data)
 
 
-def get_beverages_and_food_items():
+def get_beverages_and_food_items() -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Creates and returns beverages and food_items tables as pandas DataFrames
+    Creates and returns the 'beverages' and 'food_items' tables as Pandas DataFrames.
+
+    This method provides mock data for beverages and food items, returning two DataFrames:
+    one for beverages and one for food items.
+
+    :return: A tuple containing two Pandas DataFrames:
+             - beverages DataFrame with columns: 'beverage' and 'price'
+             - food_items DataFrame with columns: 'food_item' and 'food_price'
     """
     beverages = """
 beverage,price
@@ -47,9 +59,16 @@ muffin,3
     return beverages, food_items
 
 
-def get_sizes_and_trademarks():
+def get_sizes_and_trademarks() -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Creates and returns sizes and trademarks tables as pandas DataFrames
+    Creates and returns the 'sizes' and 'trademarks' tables as Pandas DataFrames.
+
+    This method provides mock data for sizes and trademarks, returning two DataFrames:
+    one for sizes and one for trademarks.
+
+    :return: A tuple containing two Pandas DataFrames:
+             - sizes DataFrame with a single column: 'size'
+             - trademarks DataFrame with a single column: 'trademark'
     """
     sizes = """
 size
@@ -70,9 +89,16 @@ Lewis
     return sizes, trademarks
 
 
-def get_hours_and_minutes():
+def get_hours_and_minutes() -> tuple[pd.DataFrame, pd.DataFrame]:
     """
-    Creates and returns hours and minutes tables as pandas DataFrames
+    Creates and returns the 'hours' and 'minutes' tables as Pandas DataFrames.
+
+    This method provides mock data for hours and minutes, returning two DataFrames:
+    one for hours and one for minutes.
+
+    :return: A tuple containing two Pandas DataFrames:
+             - hours DataFrame with a single column: 'hour'
+             - minutes DataFrame with a single column: 'minute'
     """
     hours = """
 hour
@@ -94,9 +120,22 @@ minute
     return hours, minutes
 
 
-def get_real_life_data():
+def get_real_life_data() -> (
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]
+):
     """
-    Creates and returns tables as pandas DataFrames
+    Creates and returns tables for stores, months, days, markets, and quarters as Pandas DataFrames.
+
+    This method provides mock data for different types of real-life data, returning
+    five DataFrames: one for stores, one for months, one for days of the week, one for markets,
+    and one for quarter-hour time slots.
+
+    :return: A tuple containing five Pandas DataFrames:
+             - stores DataFrame with a single column: 'store_id'
+             - months DataFrame with a single column: 'month'
+             - days DataFrame with a single column: 'day_of_week'
+             - markets DataFrame with a single column: 'market_type'
+             - quarters DataFrame with a single column: 'quarter_hour'
     """
     unique_stores = ["Bordeaux", "London", "Madrid", "Paris", "Whatever"]
     stores = pd.DataFrame(unique_stores, columns=["store_id"])

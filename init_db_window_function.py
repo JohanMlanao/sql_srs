@@ -4,9 +4,17 @@ from datetime import datetime, timedelta
 import pandas as pd
 
 
-def get_memory_state_window_function():
+def get_memory_state_window_function() -> pd.DataFrame:
     """
-    Create and returns a pandas DataFrame containing all the basic information for all exercises
+    Returns a DataFrame containing metadata about window function exercises.
+
+    The dataset includes:
+    - `theme`: The overarching category of the exercise.
+    - `exercise_name`: The name of each exercise related to window functions.
+    - `tables`: The tables involved in each exercise.
+    - `last_reviewed`: The date when the exercise was last reviewed.
+
+    :return: A Pandas DataFrame containing details of window function exercises.
     """
     data = {
         "theme": [
@@ -53,7 +61,17 @@ def get_memory_state_window_function():
     return pd.DataFrame(data)
 
 
-def get_furniture():
+def get_furniture() -> pd.DataFrame:
+    """
+    Generates and returns a Pandas DataFrame representing furniture inventory.
+
+    The dataset includes:
+    - `category`: The category of the furniture item (e.g., Chairs, Sofas, Tables).
+    - `item`: The specific name of the furniture item.
+    - `weight`: The weight of the item in kilograms.
+
+    :return: A Pandas DataFrame containing furniture information.
+    """
     furniture_data = [
         ("Chairs", "Chair 1", 5.2),
         ("Chairs", "Chair 2", 4.5),
@@ -65,11 +83,21 @@ def get_furniture():
         ("Tables", "Table 2", 12.5),
         ("Tables", "Table 3", 18.2),
     ]
-    # Create a pandas DataFrame from the predefined data
     return pd.DataFrame(furniture_data, columns=["category", "item", "weight"])
 
 
-def get_sales():
+def get_sales() -> pd.DataFrame:
+    """
+    Generates and returns a Pandas DataFrame representing sales data for a month.
+
+    The dataset includes:
+    - `date`: The specific date of sales transactions.
+    - `daily_sales`: The total sales amount for each day in units of 1000.
+
+    The sales values are randomly generated between 1000 and 7000 per day.
+
+    :return: A Pandas DataFrame containing daily sales amounts.
+    """
     start_date = datetime(2023, 9, 1)
     end_date = datetime(2023, 9, 30)
     date_range = [

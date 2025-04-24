@@ -4,9 +4,14 @@ import numpy as np
 import pandas as pd
 
 
-def get_memory_state_grouping_sets():
+def get_memory_state_grouping_sets() -> pd.DataFrame:
     """
-    Create and returns a pandas DataFrame containing all the basic information for all exercises
+    Returns metadata for SQL exercises related to Grouping Sets, Rollup, and Cube.
+
+    This metadata includes the theme, names of the exercises, the relevant tables used in each,
+    and the date each was last reviewed.
+
+    :return: A Pandas DataFrame with columns: 'theme', 'exercise_name', 'tables', and 'last_reviewed'.
     """
     data = {
         "theme": [
@@ -32,8 +37,22 @@ def get_memory_state_grouping_sets():
     return pd.DataFrame(data)
 
 
-def get_health_care():
-    num_samples = 1000
+def get_health_care(num_samples: int = 1000) -> pd.DataFrame:
+    """
+    Generates a synthetic healthcare dataset used for exercises involving grouping sets, rollup, and cube operations.
+
+    This dataset simulates healthcare reimbursements based on different contract types, procedure types,
+    sex, age groups, and years. Random data is generated to mimic realistic distributions for training purposes.
+
+    :param num_samples: The number of records (rows) to generate. Default is 1000.
+    :return: A Pandas DataFrame with the following columns:
+             - 'contract_type': Type of health insurance contract (e.g., senior, famille).
+             - 'sex': Gender of the individual (homme, femme).
+             - 'procedure_type': Type of medical procedure (e.g., pharmacie, hospitalisation).
+             - 'age_group': Age group of the individual.
+             - 'years': Year of the procedure.
+             - 'reimbursement_amount': Simulated cost of the procedure.
+    """
     contrats = ["senior", "jeunes", "expat", "famille", "salarié"]
     sexe = ["homme", "femme"]
     type_acte = {
@@ -46,31 +65,32 @@ def get_health_care():
     }
     groupe_age = ["18-25", "25-45", "45-65", "65+"]
     annee = [2017, 2018, 2019]
-    # Initialize empty lists to store the data
+
     contrats_data = []
     sexe_data = []
     type_acte_data = []
     groupe_age_data = []
     annee_data = []
     cost_data = []
-    # Generate random data for each category
-    for _ in range(num_samples):
-        contrats_data.append(random.choice(contrats))
-        sexe_data.append(random.choice(sexe))
-        if sexe_data == "femme":
-            type_acte_choice = random.choice(list(type_acte.keys()))
-        else:
-            type_acte_options = list(type_acte.keys())
-            type_acte_options.remove("maternite")
-            type_acte_choice = random.choice(type_acte_options)
 
-        type_acte_data.append(type_acte_choice)
-        cost_mean = type_acte[type_acte_choice]
-        cost_data.append(
-            np.random.normal(cost_mean, cost_mean // 3.5)
-        )  # Assuming a standard deviation of 50 for costs
+    for _ in range(num_samples):
+        selected_sexe = random.choice(sexe)
+        selected_contract = random.choice(contrats)
+
+        if selected_sexe == "femme":
+            procedure_type = random.choice(list(type_acte.keys()))
+        else:
+            procedure_type = random.choice([k for k in type_acte if k != "maternite"])
+
+        mean_cost = type_acte[procedure_type]
+        cost = np.random.normal(mean_cost, mean_cost / 3.5)
+
+        contrats_data.append(selected_contract)
+        sexe_data.append(selected_sexe)
+        type_acte_data.append(procedure_type)
         groupe_age_data.append(random.choice(groupe_age))
         annee_data.append(random.choice(annee))
+        cost_data.append(cost)
 
     return pd.DataFrame(
         {
