@@ -1,6 +1,7 @@
 # 📘 SQL SRS — Spaced Repetition System for SQL Practice
 
-Welcome to **SQL SRS**, an interactive web application designed to help you master SQL using the power of **spaced repetition**. Built with Streamlit and DuckDB, this tool lets you practice various SQL concepts like joins, window functions, groupings, and more — all through a structured review system that adapts to your learning.
+**Master SQL faster with spaced repetition.**  
+Practice joins, CTEs, window functions, and more — all in an interactive [Streamlit app](https://sql-srs-practice.streamlit.app/).
 
 ---
 
